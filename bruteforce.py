@@ -61,6 +61,8 @@ def calcul_benefice(list):
         calculs.append(action[1] * action[2] / 100)
     return (sum(calculs))
 
+
+# Ouvre le fichier .csv entré en paramètre 
 try:
     with open(sys.argv[1], newline='') as csvfile:
         actions = csv.reader(csvfile, delimiter=',', quotechar='|')
@@ -69,5 +71,6 @@ try:
             list_actions.append([case[0], float(case[1]), float(case[2].replace('%', ''))])
         combinaisons(list_actions)
     
+# Dans le cas ou le fichier n'existe pas 
 except FileNotFoundError:
     print("Le fichier demandé est introuvable, veuillez vérifier le nom")
