@@ -16,13 +16,13 @@ def somme(list):
 
 
 def knapsack(list):
-
+    
     price = prix_max*10
 
     matrice = [[0 for x in range(price + 1)] for x in range(len(list) + 1)]
 
     for action in range(1, len(list) + 1):
-        for cout in range(1, price + 1):
+        for cout in range(0, price + 1):
             if list[action-1][1] <= cout:
                 matrice[action][cout] = max(
                     list[action-1][2] + matrice[action-1][cout-list[action-1][1]],
@@ -45,12 +45,13 @@ def knapsack(list):
     print("Meilleurs résultats : ")
     for combinaison in combinaisons:
         print(combinaison[0])
-    print("Nombre d'actions retenu : ", len(combinaisons))
+    print("Nombre d'actions retenu : ", len(combinaisons)) 
     print("Prix : ~", somme(combinaisons)/10, "€")
     print("Bénéfice en deux ans : ", matrice[-1][-1], "€")
     print("temps d'exécution : ", time.time() - start_time, "secondes")
 
 
+# Ouverture du fichier entrée en paramètre pour analyse 
 
 try:
     with open(sys.argv[1], newline='') as csvfile:
@@ -60,12 +61,11 @@ try:
             if float(case[1]) <= 0:
                 pass
             else:
-                list_actions.append(
-                    [case[0],int(ceil(float(case[1])*10)),float(float(case[1]) * float(case[2].replace('%', '')) / 100),])
+                list_actions.append([case[0],int(ceil(float(case[1])*10)),float(float(case[1]) * float(case[2].replace('%', '')) / 100),])
 
-        knapsack(list_actions)
+    knapsack(list_actions)
     
 
-# Dans le cas ou le fichier n'existe pas 
+# Dans le cas ou le fichier n'existe pas ou ne porte pas le bon nom
 except FileNotFoundError:
     print("Le fichier demandé est introuvable, veuillez vérifier le nom")
