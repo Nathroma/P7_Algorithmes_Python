@@ -25,7 +25,7 @@ def knapsack(list):
     # Creation des matrices
     matrice = [[0 for x in range(price + 1)] for x in range(len(list) + 1)]
 
-
+    # Traitement des matrices
     for action in range(1, len(list) + 1):
         for cout in range(0, price + 1):
             if list[action-1][1] <= cout:
@@ -40,7 +40,7 @@ def knapsack(list):
     nb_actions = len(list)
     combinaisons = []
 
-    # 
+    # Récuperation dans une liste des actions retenus
     while price >= 0 and nb_actions >= 0:
         i = list[nb_actions-1]
         if matrice[nb_actions][price] == matrice[nb_actions-1][price-i[1]] + i[2]:
